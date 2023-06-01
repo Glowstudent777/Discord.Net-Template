@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Bot/Dockerfile
+    container_name: Bot
+    restart: unless-stopped
