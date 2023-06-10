@@ -109,7 +109,7 @@ public class InteractionHandlingService
                 case InteractionCommandError.Exception:
                     Console.WriteLine("Command Error:");
                     Console.WriteLine(arg3.ErrorReason);
-                    await arg2.Interaction.RespondAsync($"Command exception: {arg3.ErrorReason}. If this message persists, please let us know in the support server!", ephemeral: true);
+                    await arg2.Interaction.RespondAsync($"Command exception: {arg3.ErrorReason}. If this message persists, please let us know in the support server (https://discord.gg/xyzMyJH) !", ephemeral: true);
                     break;
                 case InteractionCommandError.Unsuccessful:
                     await arg2.Interaction.RespondAsync("Command could not be executed", ephemeral: true);
@@ -134,6 +134,8 @@ public class InteractionHandlingService
         {
             Console.WriteLine("Caught exception:");
             Console.WriteLine(ex);
+            // if a Slash Command execution fails it is most likely that the original interaction acknowledgement will persist. It is a good idea to delete the original
+            // response, or at least let the user know that something went wrong during the command execution.
             if (arg.Type == InteractionType.ApplicationCommand)
             {
                 await arg.GetOriginalResponseAsync().ContinueWith(async (msg) => await msg.Result.DeleteAsync());

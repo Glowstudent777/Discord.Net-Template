@@ -5,30 +5,28 @@ using Discord.WebSocket;
 using Bot.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bot
 {
     public class Startup
     {
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         private DiscordShardedClient _client;
         private InteractionService _interactions;
         private CommandService _commands;
         private IServiceProvider _services;
 
         private System.Collections.Generic.IEnumerable<Discord.Interactions.ModuleInfo> _interactionModules;
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
-
 
         public async Task Initialize()
         {
             var clientConfig = new DiscordSocketConfig()
             {
                 GatewayIntents = GatewayIntents.All,
-                LogLevel = LogSeverity.Info
             };
 
             await using var services = ConfigureServices(clientConfig);
+            _services = services.GetRequiredService<IServiceProvider>();
             _client = services.GetRequiredService<DiscordShardedClient>();
 
             _client.Log += LogAsync;
@@ -37,7 +35,7 @@ namespace Bot
             var interactions = services.GetRequiredService<InteractionService>();
             _interactions = interactions;
 
-            InstallCommands();
+            await InstallCommandsAsync();
 
             // Tokens should be considered secret data and never hard-coded.
             // We can read from the environment variable to avoid hardcoding.
@@ -54,15 +52,18 @@ namespace Bot
             await Task.Delay(-1);
         }
 
-        public void InstallCommands()
+        public async Task InstallCommandsAsync()
         {
             _client.ShardReady += RegisterCommands;
+
+            var assembly = Assembly.GetEntryAssembly();
+            _interactionModules = await _interactions.AddModulesAsync(assembly, _services);
         }
 
         private async Task RegisterCommands(DiscordSocketClient client)
         {
             if (client.ShardId != 0) return;
-            _interactionModules = await _interactions.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
+            await _interactions.AddModulesGloballyAsync(true, _interactionModules.ToArray());
         }
 
         private static Task LogAsync(LogMessage log)
@@ -87,6 +88,11 @@ namespace Bot
                 .AddSingleton<InteractionHandlingService>()
                 .AddSingleton<CommandHandlingService>()
                 .AddSingleton<MessageHandler>()
+                .AddDbContext<Database>(options =>
+                {
+                    var connectionString = Environment.GetEnvironmentVariable("DATABASE");
+                    options.UseSqlServer($@"{connectionString}");
+                })
                 .BuildServiceProvider();
         }
 

@@ -391,3 +391,4 @@ FodyWeavers.xsd
 
 # Secrets
 appsettings.json
+/Bot/Properties/launchSettings.json

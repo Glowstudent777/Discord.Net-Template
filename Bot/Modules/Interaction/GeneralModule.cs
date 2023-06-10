@@ -6,7 +6,6 @@ namespace Bot.Modules.Interaction;
 
 public class GeneralModule : InteractionModuleBase<ShardedInteractionContext>
 {
-
     [SlashCommand("ping", "Display bot latency")]
     public async Task LatencyAsync()
     {
