@@ -10,7 +10,26 @@ Just a simple command in the terminal of your choice
 git clone https://github.com/Phish-Net/Discord.Net-Template.git
 ```
 
+# Database
+
+You'll need to fire up a MySQL or MariaDB database and grab it's connection details.
+
+If your database isn't running locally you'll need to replace `localhost` with the server ip/hostname.
+
+| Key      | Input                             |
+| -------- | --------------------------------- |
+| server   | URL or IP                         |
+| port     | Usually 3306                      |
+| uid      | Database username                 |
+| pwd      | Database password                 |
+| database | database you're using for the bot |
+
+```
+server=localhost;port=3306;uid=root;pwd=root;database=test_db
+```
+
 # Building
+
 Build the bot and restore the dependancies using the `dotnet` command.
 
 ```
@@ -29,6 +48,7 @@ docker-compose up -d
 
 ### Environment Variables
 
-| Key            | Required | Default |
-| -------------- | -------- | ------- |
-| TOKEN          | True     | None    |
+| Key      | Required | Default |
+| -------- | -------- | ------- |
+| TOKEN    | True     | None    |
+| DATABASE | True     | None    |
