@@ -1,6 +1,7 @@
 ﻿using Discord;
-using Bot.Models;
 using Microsoft.EntityFrameworkCore;
+using Bot.Models;
+
 
 namespace Bot.Controllers.Helpers
 {
@@ -8,18 +9,18 @@ namespace Bot.Controllers.Helpers
     {
         public static async Task<Guild> Perform(IGuild guild, Database db)
         {
-            var GuildDb = await db.Guilds.FirstOrDefaultAsync(x => x.GuildID == guild.Id.ToString());
-            if (GuildDb == null)
+            var guilddb = await db.Guilds.FirstOrDefaultAsync(x => x.GuildID == guild.Id.ToString());
+            if (guilddb == null)
             {
-                GuildDb = new Guild
+                guilddb = new Guild
                 {
                     GuildID = guild.Id.ToString(),
                     CacheDate = DateTime.Now
                 };
-                await db.Guilds.AddAsync(GuildDb);
+                await db.Guilds.AddAsync(guilddb);
                 await db.SaveChangesAsync();
             }
-            return GuildDb;
+            return guilddb;
         }
     }
 }

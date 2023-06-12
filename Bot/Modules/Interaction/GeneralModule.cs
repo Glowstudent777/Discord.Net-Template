@@ -1,24 +1,32 @@
 ﻿using Discord.Interactions;
 using Bot.Common;
+using Bot.Controllers.Helpers;
 using Discord;
+using Bot.Models;
 
 namespace Bot.Modules.Interaction;
 
-public class GeneralModule : InteractionModuleBase<ShardedInteractionContext>
+//public class GeneralModule : InteractionModuleBase<ShardedInteractionContext>
+public class GeneralModule
 {
-    [SlashCommand("ping", "Display bot latency")]
-    public async Task LatencyAsync()
+    public class GeneralGroup : InteractionsBase
     {
-        await DeferAsync();
+        public GeneralGroup(Database database) : base(database) { }
 
-        int latency = Context.Client.Latency;
+        [SlashCommand("ping", "Display bot latency")]
+        public async Task LatencyAsync()
+        {
+            await DeferAsync();
 
-        var embed = new EmbedBuilder()
-            .WithTitle("Latency")
-            .WithDescription($"⌛ {latency} ms")
-            .WithColor(Config.Colors.Primary)
-            .Build();
+            int latency = Context.Client.Latency;
 
-        await FollowupAsync(embed: embed);
+            var embed = new EmbedBuilder()
+                .WithTitle("Latency")
+                .WithDescription($"⌛ {latency} ms")
+                .WithColor(Config.Colors.Primary)
+                .Build();
+
+            await FollowupAsync(embed: embed);
+        }
     }
 }

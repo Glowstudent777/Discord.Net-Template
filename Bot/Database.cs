@@ -1,24 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bot.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 
 namespace Bot
 {
     public class Database : DbContext
     {
-        public DbSet<Models.Guild> Guilds { get; set; }
+        public Database(DbContextOptions<Database> options)
+            : base(options) { }
 
-        public Database(DbContextOptions<Database> options) : base(options) { }
+        public DbSet<Guild> Guilds { get; set; }
     }
 
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Database>
     {
         public Database CreateDbContext(string[] args)
         {
-            var builder = new DbContextOptionsBuilder<Database>();
+            var optionsBuilder = new DbContextOptionsBuilder<Database>();
             var connectionString = Environment.GetEnvironmentVariable("DATABASE");
-            builder.UseSqlServer($@"{connectionString}");
+            optionsBuilder.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 29)));
 
-            return new Database(builder.Options);
+            return new Database(optionsBuilder.Options);
         }
     }
 }

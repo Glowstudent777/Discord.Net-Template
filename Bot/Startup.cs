@@ -6,6 +6,7 @@ using Bot.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Bot
 {
@@ -88,10 +89,10 @@ namespace Bot
                 .AddSingleton<InteractionHandlingService>()
                 .AddSingleton<CommandHandlingService>()
                 .AddSingleton<MessageHandler>()
-                .AddDbContext<Database>(options =>
+                .AddDbContextPool<Database>(options =>
                 {
                     var connectionString = Environment.GetEnvironmentVariable("DATABASE");
-                    options.UseSqlServer($@"{connectionString}");
+                    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8,0,29)));
                 })
                 .BuildServiceProvider();
         }
