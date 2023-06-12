@@ -7,7 +7,7 @@ This is a Discord bot made in C# using .Net 7.
 Just a simple command in the terminal of your choice
 
 ```
-git clone https://github.com/Phish-Net/Discord.Net-Template.git
+git clone https://github.com/Glowstudent777/Discord.Net-Template.git
 ```
 
 # Database
