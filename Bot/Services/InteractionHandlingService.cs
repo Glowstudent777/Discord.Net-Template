@@ -109,7 +109,8 @@ public class InteractionHandlingService
                 case InteractionCommandError.Exception:
                     Console.WriteLine("Command Error:");
                     Console.WriteLine(arg3.ErrorReason);
-                    await arg2.Interaction.RespondAsync($"Command exception: {arg3.ErrorReason}. If this message persists, please let us know in the support server (https://discord.gg/xyzMyJH) !", ephemeral: true);
+                    await GenerateMessage.Error(arg2, title: $"Command exception: {arg3.ErrorReason}.", description: "If this message persists, please let us know in the support server!", ephemeral: true, supportinvite: true);
+                    //await arg2.Interaction.RespondAsync($"Command exception: {arg3.ErrorReason}. If this message persists, please let us know in the support server ({Config.SupportServer}) !", ephemeral: true);
                     break;
                 case InteractionCommandError.Unsuccessful:
                     await arg2.Interaction.RespondAsync("Command could not be executed", ephemeral: true);

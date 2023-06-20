@@ -69,7 +69,7 @@ namespace Bot
 
         private static Task LogAsync(LogMessage log)
         {
-            if(log.Exception is GatewayReconnectException)
+            if (log.Exception is GatewayReconnectException)
             {
                 if (log.Exception.InnerException is not null)
                     Console.WriteLine(log.Exception.InnerException.Message);
@@ -92,7 +92,7 @@ namespace Bot
                 .AddDbContextPool<Database>(options =>
                 {
                     var connectionString = Environment.GetEnvironmentVariable("DATABASE");
-                    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8,0,29)));
+                    options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 29)));
                 })
                 .BuildServiceProvider();
         }

@@ -1,12 +1,9 @@
 ﻿using Discord.Interactions;
 using Bot.Common;
-using Bot.Controllers.Helpers;
 using Discord;
-using Bot.Models;
 
 namespace Bot.Modules.Interaction;
 
-//public class GeneralModule : InteractionModuleBase<ShardedInteractionContext>
 public class GeneralModule
 {
     public class GeneralGroup : InteractionsBase

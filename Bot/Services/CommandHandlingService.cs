@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Threading.Tasks;
+using Bot.Common;
 using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
@@ -57,7 +58,40 @@ public class CommandHandlingService
         if (result.IsSuccess)
             return;
 
+        switch (result.Error)
+        {
+            case CommandError.UnknownCommand:
+                // implement
+                break;
+            case CommandError.BadArgCount:
+                // implement
+                break;
+            case CommandError.UnmetPrecondition:
+                // implement
+                break;
+            case CommandError.ParseFailed:
+                // implement
+                break;
+            case CommandError.ObjectNotFound:
+                // implement
+                break;
+            case CommandError.MultipleMatches:
+                // implement
+                break;
+            case CommandError.Exception:
+                await GenerateMessage.Error(context, title: $"Command exception: {result.ErrorReason}.", description: "If this message persists, please let us know in the support server!", supportinvite: true);
+                break;
+            case CommandError.Unsuccessful:
+                // implement
+                break;
+            case null:
+                // implement
+                break;
+            default:
+                break;
+        }
+
         // the command failed, let's notify the user that something happened.
-        await context.Channel.SendMessageAsync($"error: {result}");
+        //await context.Channel.SendMessageAsync($"error: {result}");
     }
 }

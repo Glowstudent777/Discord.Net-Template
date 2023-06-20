@@ -12,6 +12,8 @@ namespace Bot.Common
         public static string EmbedSpacer { get; set; } = "https://cdn.animeinterlink.com/r/embed_spacer.png";
 
         public static Colors Colors { get; set; } = new Colors();
+
+        public static string SupportServer { get; set; } = "https://discord.gg/4wM63P7ZUd";
     }
 
     public class Colors
