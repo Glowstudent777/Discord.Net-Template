@@ -10,6 +10,7 @@ namespace Bot
             : base(options) { }
 
         public DbSet<Guild> Guilds { get; set; }
+        public DbSet<User> Users { get; set; }
     }
 
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Database>

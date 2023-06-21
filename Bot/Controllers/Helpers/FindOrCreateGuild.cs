@@ -9,18 +9,22 @@ namespace Bot.Controllers.Helpers
     {
         public static async Task<Guild> Perform(IGuild guild, Database db)
         {
-            var guilddb = await db.Guilds.FirstOrDefaultAsync(x => x.GuildID == guild.Id.ToString());
-            if (guilddb == null)
+            var guilddb = await db.Guilds.FirstOrDefaultAsync(x => x.GuildId == guild.Id);
+            if (guilddb != null)
             {
-                guilddb = new Guild
-                {
-                    GuildID = guild.Id.ToString(),
-                    CacheDate = DateTime.Now
-                };
-                await db.Guilds.AddAsync(guilddb);
-                await db.SaveChangesAsync();
+                return guilddb;
             }
-            return guilddb;
+            else
+            {
+                Console.WriteLine($"Creating new guild {guild.Id}");
+                var newGuild = new Guild
+                {
+                    GuildId = guild.Id,
+                };
+                await db.Guilds.AddAsync(newGuild);
+                await db.SaveChangesAsync();
+                return newGuild;
+            }
         }
     }
 }
