@@ -3,6 +3,7 @@ using Discord.WebSocket;
 using Microsoft.Extensions.DependencyInjection;
 using Bot.Common;
 using Bot.Controllers.Helpers;
+using Bot.Models;
 
 namespace Bot.Services;
 
@@ -35,6 +36,7 @@ public class MessageHandler
         // Add a point to the user's message count
         _ = Task.Run(async () =>
         {
+
             var channel = (IGuildChannel)message.Channel;
             var userDb = await FindOrCreateUser.Perform(channel.Guild, (IGuildUser)rawMessage.Author, Database);
             userDb.MessageCount++;

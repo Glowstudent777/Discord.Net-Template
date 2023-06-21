@@ -10,6 +10,7 @@ namespace Bot.Controllers.Helpers
         public static async Task<Guild> Perform(IGuild guild, Database db)
         {
             var guilddb = await db.Guilds.FirstOrDefaultAsync(x => x.GuildId == guild.Id);
+
             if (guilddb != null)
             {
                 return guilddb;

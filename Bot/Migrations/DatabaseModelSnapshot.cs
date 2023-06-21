@@ -31,9 +31,9 @@ namespace Bot.Migrations
 
             modelBuilder.Entity("Bot.Models.User", b =>
                 {
-                    b.Property<ulong>("UserID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned");
+                        .HasColumnType("int");
 
                     b.Property<ulong>("GuildId")
                         .HasColumnType("bigint unsigned");
@@ -41,7 +41,10 @@ namespace Bot.Migrations
                     b.Property<int>("MessageCount")
                         .HasColumnType("int");
 
-                    b.HasKey("UserID");
+                    b.Property<ulong>("UserID")
+                        .HasColumnType("bigint unsigned");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("GuildId");
 

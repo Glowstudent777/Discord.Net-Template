@@ -98,13 +98,22 @@ public class InteractionHandlingService
             switch (arg3.Error)
             {
                 case InteractionCommandError.UnmetPrecondition:
-                    await arg2.Interaction.RespondAsync($"Unmet Precondition: {arg3.ErrorReason}", ephemeral: true);
+                    if (arg2.Interaction.HasResponded)
+                        await arg2.Interaction.FollowupAsync($"Unmet Precondition: {arg3.ErrorReason}");
+                    else
+                        await arg2.Interaction.RespondAsync($"Unmet Precondition: {arg3.ErrorReason}", ephemeral: true);
                     break;
                 case InteractionCommandError.UnknownCommand:
-                    await arg2.Interaction.RespondAsync("Unknown command", ephemeral: true);
+                    if (arg2.Interaction.HasResponded)
+                        await arg2.Interaction.FollowupAsync("Unknown command", ephemeral: true);
+                    else
+                        await arg2.Interaction.RespondAsync("Unknown command", ephemeral: true);
                     break;
                 case InteractionCommandError.BadArgs:
-                    await arg2.Interaction.RespondAsync("Invalid number or arguments", ephemeral: true);
+                    if (arg2.Interaction.HasResponded)
+                        await arg2.Interaction.FollowupAsync("Invalid number or arguments");
+                    else
+                        await arg2.Interaction.RespondAsync("Invalid number or arguments", ephemeral: true);
                     break;
                 case InteractionCommandError.Exception:
                     Console.WriteLine("Command Error:");
@@ -113,7 +122,10 @@ public class InteractionHandlingService
                     //await arg2.Interaction.RespondAsync($"Command exception: {arg3.ErrorReason}. If this message persists, please let us know in the support server ({Config.SupportServer}) !", ephemeral: true);
                     break;
                 case InteractionCommandError.Unsuccessful:
-                    await arg2.Interaction.RespondAsync("Command could not be executed", ephemeral: true);
+                    if (arg2.Interaction.HasResponded)
+                        await arg2.Interaction.FollowupAsync("Command could not be executed");
+                    else
+                        await arg2.Interaction.RespondAsync("Command could not be executed", ephemeral: true);
                     break;
                 default:
                     break;

@@ -2,6 +2,7 @@
 using Bot.Common;
 using Bot.Controllers.Helpers;
 using Discord;
+using System.Data.Entity;
 
 namespace Bot.Modules.Interaction;
 
@@ -43,4 +44,4 @@ public class GeneralModule
             await FollowupAsync(embed: embed);
         }
     }
-}
+} 

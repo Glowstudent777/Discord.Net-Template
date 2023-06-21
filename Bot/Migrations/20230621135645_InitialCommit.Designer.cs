@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bot.Migrations
 {
     [DbContext(typeof(Database))]
-    [Migration("20230621010016_InitialCommit")]
+    [Migration("20230621135645_InitialCommit")]
     partial class InitialCommit
     {
         /// <inheritdoc />
@@ -34,9 +34,9 @@ namespace Bot.Migrations
 
             modelBuilder.Entity("Bot.Models.User", b =>
                 {
-                    b.Property<ulong>("UserID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint unsigned");
+                        .HasColumnType("int");
 
                     b.Property<ulong>("GuildId")
                         .HasColumnType("bigint unsigned");
@@ -44,7 +44,10 @@ namespace Bot.Migrations
                     b.Property<int>("MessageCount")
                         .HasColumnType("int");
 
-                    b.HasKey("UserID");
+                    b.Property<ulong>("UserID")
+                        .HasColumnType("bigint unsigned");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("GuildId");
 

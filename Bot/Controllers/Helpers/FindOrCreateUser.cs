@@ -21,11 +21,11 @@ namespace Bot.Controllers.Helpers
                 {
                     UserID = user.Id,
                     MessageCount = 0,
-                    GuildId = guild.Id,
-                    Guild = guildDb
+                    GuildId = guild.Id
                 };
 
-                guildDb.Users.Add(newUser);
+                db.Users.Add(newUser);
+                //guildDb.Users.Add(newUser);
                 await db.SaveChangesAsync();
                 return newUser;
             }

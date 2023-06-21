@@ -31,14 +31,15 @@ namespace Bot.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserID = table.Column<ulong>(type: "bigint unsigned", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserID = table.Column<ulong>(type: "bigint unsigned", nullable: false),
                     MessageCount = table.Column<int>(type: "int", nullable: false),
                     GuildId = table.Column<ulong>(type: "bigint unsigned", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserID);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Users_Guilds_GuildId",
                         column: x => x.GuildId,

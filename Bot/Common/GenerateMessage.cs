@@ -56,7 +56,13 @@ public class GenerateMessage
         if (context is IInteractionContext interactionContext)
         {
             if (embeded)
-                await interactionContext.Interaction.RespondAsync(embed: embedBuilder.Build(), components: supportinvite ? SupportButton.Build() : null, ephemeral: ephemeral);
+                if (interactionContext.Interaction.HasResponded)
+                    await interactionContext.Interaction.FollowupAsync(embed: embedBuilder.Build(), components: supportinvite ? SupportButton.Build() : null, ephemeral: ephemeral);
+                else
+                    await interactionContext.Interaction.RespondAsync(embed: embedBuilder.Build(), components: supportinvite ? SupportButton.Build() : null, ephemeral: ephemeral);
+            else
+                if (interactionContext.Interaction.HasResponded)
+                await interactionContext.Interaction.FollowupAsync(description, components: supportinvite ? SupportButton.Build() : null, ephemeral: ephemeral);
             else
                 await interactionContext.Interaction.RespondAsync(description, components: supportinvite ? SupportButton.Build() : null, ephemeral: ephemeral);
         }
