@@ -21,6 +21,7 @@ namespace Bot
 
         public async Task Initialize()
         {
+
             var clientConfig = new DiscordSocketConfig()
             {
                 GatewayIntents = GatewayIntents.All,
@@ -29,6 +30,9 @@ namespace Bot
             await using var services = ConfigureServices(clientConfig);
             _services = services.GetRequiredService<IServiceProvider>();
             _client = services.GetRequiredService<DiscordShardedClient>();
+
+            var db = services.GetRequiredService<Database>();
+            await db.Database.MigrateAsync();
 
             _client.Log += LogAsync;
             services.GetRequiredService<CommandService>().Log += LogAsync;
