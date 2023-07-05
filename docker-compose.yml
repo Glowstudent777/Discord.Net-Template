@@ -1,7 +1,19 @@
 version: "3.9"
-volumes:
-  data:
 services:
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_USER: 'bot'
+      MARIADB_PASSWORD: 'supersecurepassword'
+      MARIADB_DATABASE: 'bot'
+      MARIADB_ROOT_PASSWORD: 'supersecurepassword'
+    volumes:
+      - mariadb-data:/var/lib/mysql
+    ports:
+      - "3310:3306"
+
+
   bot:
     build:
       context: .
@@ -9,17 +21,22 @@ services:
     container_name: Bot
     restart: unless-stopped
     environment:
-        - TOKEN
-        - DATABASE=server=localhost;port=3306;uid=root;pwd=root;database=bot
-  db:
-    image: mariadb
+      - TOKEN
+      - DATABASE=server=db;port=3306;user=bot;password=supersecurepassword;database=bot
+    depends_on:
+      - db
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: supersecurepassword
-      MYSQL_DATABASE: bot
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-    volumes:
-      - data:/var/lib/mysql
+      PMA_HOST: db
+      PMA_USER: bot
+      PMA_PASSWORD: supersecurepassword
     ports:
-      - "3306:3306"
+      - "8080:80"
+
+
+volumes:
+  mariadb-data:
+    name: 'template-mariadb-data'
