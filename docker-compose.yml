@@ -1,4 +1,6 @@
 version: "3.9"
+volumes:
+  data:
 services:
   bot:
     build:
@@ -11,6 +13,7 @@ services:
         - DATABASE=server=localhost;port=3306;uid=root;pwd=root;database=bot
   db:
     image: mariadb
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: supersecurepassword
       MYSQL_DATABASE: bot
