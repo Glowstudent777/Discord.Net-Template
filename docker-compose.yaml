@@ -8,4 +8,15 @@ services:
     restart: unless-stopped
     environment:
         - TOKEN
-        - DATABASE
+        - DATABASE=server=localhost;port=3306;uid=root;pwd=root;database=bot
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecurepassword
+      MYSQL_DATABASE: bot
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - data:/var/lib/mysql
+    ports:
+      - "3306:3306"
