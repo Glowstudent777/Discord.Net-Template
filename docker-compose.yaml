@@ -6,3 +6,6 @@ services:
       dockerfile: Bot/Dockerfile
     container_name: Bot
     restart: unless-stopped
+    environment:
+        - TOKEN
+        - DATABASE
