@@ -25,7 +25,6 @@ services:
       - DATABASE=server=db;port=3306;user=bot;password=supersecurepassword;database=bot
     depends_on:
       - db
-    command: sh -c "dotnet ef database update --no-build && dotnet run --no-build --project Bot"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
