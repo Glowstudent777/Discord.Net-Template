@@ -1,12 +1,11 @@
-﻿using Discord;
+﻿using Bot.Services;
+using Discord;
 using Discord.Commands;
 using Discord.Interactions;
 using Discord.WebSocket;
-using Bot.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Bot
 {
@@ -97,6 +96,7 @@ namespace Bot
                 {
                     var connectionString = Environment.GetEnvironmentVariable("DATABASE");
                     options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 29)));
+
                 })
                 .BuildServiceProvider();
         }
