@@ -28,4 +28,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ComponentLib\ComponentLib.csproj" />
+  </ItemGroup>
+
 </Project>

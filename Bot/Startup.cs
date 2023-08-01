@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
+using ComponentLib;
+
 namespace Bot
 {
     public class Startup
@@ -62,12 +64,22 @@ namespace Bot
 
             var assembly = Assembly.GetEntryAssembly();
             _interactionModules = await _interactions.AddModulesAsync(assembly, _services);
+            
+            // add modules from ComponentLib
+            _interactionModules = _interactionModules.Concat(await _interactions.AddModulesAsync(typeof(ComponentLib.ComponentLib).Assembly, new ComponentLib.ComponentLib()._services));
         }
 
         private async Task RegisterCommands(DiscordSocketClient client)
         {
             if (client.ShardId != 0) return;
+
+            _ = new ComponentLib.ComponentLib().Initialize(_client);
             await _interactions.AddModulesGloballyAsync(true, _interactionModules.ToArray());
+            
+            foreach (var module in _interactionModules)
+            {
+                Console.WriteLine($"Registered {module.Name}");
+            }
         }
 
         private static Task LogAsync(LogMessage log)

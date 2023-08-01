@@ -52,7 +52,9 @@ public class GeneralModule
 
             var buttons = new ActionRowBuilder()
                 .AddComponent(ButtonComponents.ToggleButton("Toggle Me", "toggle", false, ButtonStyle.Success))
-                .AddComponent(ButtonComponents.TriButton("Cycle Me", "cycle", false, ButtonStyle.Success));
+                .AddComponent(ButtonComponents.TriButton("Cycle Me", "cycle", false, ButtonStyle.Success))
+                .AddComponent(ComponentLib.Buttons.ToggleButton("Lib Toggle", "toggle1", false, ButtonStyle.Success))
+                .AddComponent(ComponentLib.Buttons.TriButton("Lib Toggle", "cycle1", false, ButtonStyle.Success));
 
             var actionRow = new ComponentBuilder()
                 .AddRow(buttons)
