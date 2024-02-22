@@ -4,11 +4,11 @@ This is a Discord bot template made in C# using .Net 7
 
 ### Features
 
-[x] Dockerized
-[x] Database
-[x] Organized Layout
-[x] Nice Logs
-[] Cron Jobs
+- [x] Dockerized
+- [x] Database
+- [x] Organized Layout
+- [x] Nice Logs
+- [ ] Cron Jobs
 
 ## Cloning
 
