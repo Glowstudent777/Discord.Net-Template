@@ -71,7 +71,7 @@ If your database isn't running locally you'll need to replace `localhost` with t
 
 | Key      	  | Input                             |
 | ----------- | --------------------------------- |
-| Server   	  | URL or IP                         |
+| Server   	  | IP or hostname                    |
 | Port     	  | Usually 5432                      |
 | UserId      | Database username                 |
 | Password    | Database password                 |
