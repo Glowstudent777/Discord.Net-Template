@@ -1,42 +1,35 @@
 version: "3.9"
 services:
-  db:
-    image: mariadb:latest
-    restart: always
-    environment:
-      MARIADB_USER: 'bot'
-      MARIADB_PASSWORD: 'supersecurepassword'
-      MARIADB_DATABASE: 'bot'
-      MARIADB_ROOT_PASSWORD: 'supersecurepassword'
-    volumes:
-      - mariadb-data:/var/lib/mysql
-    ports:
-      - "3310:3306"
-
-
-  bot:
-    build:
-      context: .
-      dockerfile: Bot/Dockerfile
-    container_name: Bot
-    restart: unless-stopped
-    environment:
-      - TOKEN
-      - DATABASE=server=db;port=3306;user=bot;password=supersecurepassword;database=bot
-    depends_on:
-      - db
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    restart: always
-    environment:
-      PMA_HOST: db
-      PMA_USER: bot
-      PMA_PASSWORD: supersecurepassword
-    ports:
-      - "8080:80"
-
+    postgres:
+        container_name: 'houston-postgres'
+        image: postgres:15
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        restart: unless-stopped
+        environment:
+            POSTGRES_USER: 'houston'
+            POSTGRES_PASSWORD: 'supersecurepassword'
+            POSTGRES_DB: 'houston'
+            
+    bot:
+        container_name: 'houston-bot'
+        build:
+            context: './src'
+            dockerfile: 'Houston.Bot/Dockerfile'
+        depends_on:
+            - postgres
+        volumes:
+            - './bot-logs:/app/logs'
+        restart: unless-stopped
+        environment:
+            - TOKEN=${TOKEN}
+            - DATABASE=Server=postgres;Port=5432;Database=houston;UserId=houston;Password=supersecurepassword;
+        env_file:
+          - .env
+        logging:
+            driver: "local"
+            options:
+                max-size: 50M
 
 volumes:
-  mariadb-data:
-    name: 'template-mariadb-data'
+    postgres:

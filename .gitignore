@@ -390,5 +390,5 @@ FodyWeavers.xsd
 *.sln.iml
 
 # Secrets
-appsettings.json
-/Bot/Properties/launchSettings.json
+launchSettings.json
+.env

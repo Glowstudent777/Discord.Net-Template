@@ -24,4 +24,4 @@ jobs:
         with:
           push: false
           platforms: linux/amd64
-          file: './Bot/Dockerfile'
+          file: './src/Houston.Bot/Dockerfile'

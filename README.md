@@ -1,54 +1,32 @@
-# Discord.Net Template
+# Houston
+This is a Discord bot template made in C# using .Net 7
 
-This is a Discord bot made in C# using .Net 7.
+## Cloning
 
-# Cloning
-
-Just a simple command in the terminal of your choice
-
-```
-git clone https://github.com/Glowstudent777/Discord.Net-Template.git
+First clone this repo using the following command:
+```sh
+git clone https://github.com/Glowstudent777/Houston.git
 ```
 
-# Database
+## Configuration
 
-You'll need to fire up a MySQL or MariaDB database and grab it's connection details.
-
-If your database isn't running locally you'll need to replace `localhost` with the server ip/hostname.
-
-| Key      | Input                             |
-| -------- | --------------------------------- |
-| server   | URL or IP                         |
-| port     | Usually 3306                      |
-| uid      | Database username                 |
-| pwd      | Database password                 |
-| database | database you're using for the bot |
-
+### Setting the Token
+1. Get your Discord bot token from the [Discord Developer Portal](https://discord.com/developers/applications).
+2. Rename `.env.example` to `.env` using the following command:
+```sh
+mv .env.example .env
 ```
-server=localhost;port=3306;uid=root;pwd=root;database=test_db
-```
-
-# Building
-
-Build the bot and restore the dependancies using the `dotnet` command.
-
-```
-dotnet restore && dotnet build
-```
-
-# Running the Bot
+3. Add your token to the `.env` file. This can be done using this command: `sudo nano .env`. Paste your token after `TOKEN=`. Lastly save the file using <kbd>Ctrl</kbd>+<kbd>X</kbd>, then <kbd>Y</kbd> and finally <kbd>Enter</kbd>.
 
 ## Docker
 
-This project is meant to run in a Docker container so make sure you don't forget to configure the variables in the `docker-compose.yml` file before running the bot.
+You will need to have Docker installed for this, if you don't have it set up, [here is a guide](https://docs.docker.com/engine/install/debian/#install-using-the-repository).
 
+After you have installed and set up Docker run the following command:
+```sh
+docker compose up -d --build
 ```
-docker-compose up -d
-```
 
-### Environment Variables
+## Contributing & Licensing
 
-| Key      | Required | Default |
-| -------- | -------- | ------- |
-| TOKEN    | True     | None    |
-| DATABASE | True     | None    |
+Contributions are welcome. Please read the full conditions surrounding contributing in the [LICENSE](LICENSE) document before sending in your contributions.
