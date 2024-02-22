@@ -3,7 +3,7 @@ using Discord.Interactions;
 using Houston.Bot.Modules;
 using Houston.Database;
 
-namespace Welcomer.Bot.Modules.Buttons;
+namespace Houston.Bot.Modules.Buttons;
 
 public class StyleCycler
 {
