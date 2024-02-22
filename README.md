@@ -50,7 +50,7 @@ If you change the project name from `Houston` to something else make sure to upd
 
 If you don't know how, here is how you enter environment variables in Visual Studio for local testing.
 
-1. Right clikc the `Xxx.Bot` project and select `Properties`
+1. Right click the `Xxx.Bot` project and select `Properties`
 2. In the menu on the right side, go to `Debug`
 3. Select `Open debug launch profiles UI`
 4. Add `TOKEN` and `DATABASE` to the `Environment variables` section
