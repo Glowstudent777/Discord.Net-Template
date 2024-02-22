@@ -27,4 +27,4 @@ jobs:
           context: ./src
           push: false
           platforms: linux/amd64
-          file: Houston.Bot/Dockerfile
+          file: ./src/Houston.Bot/Dockerfile
