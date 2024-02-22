@@ -22,6 +22,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
+          context: .
           push: false
           platforms: linux/amd64
-          file: './src/Houston.Bot/Dockerfile'
+          file: src/Houston.Bot/Dockerfile
