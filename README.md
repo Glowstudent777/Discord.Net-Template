@@ -8,7 +8,7 @@ This is a Discord bot template made in C# using .Net 7
 - [x] Database
 - [x] Organized Layout
 - [x] Nice Logs
-- [ ] Cron Jobs
+- [x] Cron Jobs
 
 ## Cloning
 

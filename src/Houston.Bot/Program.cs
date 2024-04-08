@@ -13,6 +13,10 @@ using System.Threading.Tasks;
 using Serilog;
 using Houston.Database;
 using Discord.Addons.Hosting;
+using Microsoft.Extensions.Logging;
+using Houston.Bot.Crons;
+using Quartz;
+using Houston.Bot.Crons.Jobs;
 
 namespace Houston.Bot;
 
@@ -28,7 +32,14 @@ internal static class Program
 			{
 				config.Token = Environment.GetEnvironmentVariable("TOKEN");
 			})
+			.ConfigureLogging((context, logging) =>
+			{
+				logging.ClearProviders();
+			})
 			.Build();
+
+		var jobSchedulerService = host.Services.GetRequiredService<JobSchedulerService>();
+		await jobSchedulerService.Start();
 
 		Log.Logger = new LoggerConfiguration()
 			.ReadFrom.Configuration(host.Services.GetRequiredService<IConfiguration>())
@@ -64,12 +75,18 @@ internal static class Program
 
 	private static void ConfigureServices(HostBuilderContext context, IServiceCollection services)
 	{
-		services.AddSingleton(typeof(Microsoft.Extensions.Logging.ILogger<>), typeof(Logger<>));
+		services.AddSingleton(typeof(Microsoft.Extensions.Logging.ILogger<>), typeof(Services.Logger<>));
 
 		services.AddDbContext<DatabaseContext>();
 
 		services.AddSingleton<InteractionService>();
 		services.AddHostedService<InteractionHandlingService>();
+
+		services.AddQuartz(q => q.UseJobFactory<JobFactory>());
+		services.AddSingleton<JobSchedulerService>();
+		services.AddSingleton<ScheduleJobs>();
+
+		services.AddSingleton<ExampleJob>();
 
 		services.AddHostedService<BotService>();
 	}

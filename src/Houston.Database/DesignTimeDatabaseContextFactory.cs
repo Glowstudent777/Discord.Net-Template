@@ -9,7 +9,7 @@ public class DesignTimeDatabaseContextFactory : IDesignTimeDbContextFactory<Data
 	public DatabaseContext CreateDbContext(string[] args)
 	{
 		var configuration = new ConfigurationBuilder()
-			.AddJsonFile(Directory.GetCurrentDirectory() + "/../Houston.Bot/appsettings.json")
+			.AddJsonFile(Directory.GetCurrentDirectory() + "/../Houston.Bot/Properties/launchSettings.json")
 			.Build();
 
 		return new DatabaseContext(configuration);

@@ -15,7 +15,8 @@ public class DatabaseContext : DbContext
 
 	public DatabaseContext(IConfiguration configuration)
 	{
-		_connectionString = Environment.GetEnvironmentVariable("DATABASE");
+		_connectionString = Environment.GetEnvironmentVariable("DATABASE") ?? configuration["profiles:Houston.Bot:environmentVariables:DATABASE"];
+
 	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder options)
