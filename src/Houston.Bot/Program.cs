@@ -80,7 +80,9 @@ internal static class Program
 		services.AddDbContext<DatabaseContext>();
 
 		services.AddSingleton<InteractionService>();
+		services.AddSingleton<CommandService>();
 		services.AddHostedService<InteractionHandlingService>();
+		services.AddHostedService<CommandHandlingService>();
 
 		services.AddQuartz(q => q.UseJobFactory<JobFactory>());
 		services.AddSingleton<JobSchedulerService>();
